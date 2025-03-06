@@ -1,15 +1,18 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="Client">
+    <xs:element name="client">
         <xs:complexType>
+            <xs:annotation>
+			    <xs:documentation>all elements of the client</xs:documentation>
+		    </xs:annotation>
             <xs:sequence>
-                <xs:element name="ID">
+                <xs:element name="idClient">
                     <xs:simpleType>
                         <xs:restriction base="xs:int">
                             <xs:minInclusive value="1"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Name">
+                <xs:element name="clientName">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:minLength value="1"/>
@@ -17,28 +20,46 @@
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Address">
+                <xs:element name="address">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
-                            <xs:minLength value="1"/>
+                            <xs:minLength value="10"/>
                             <xs:maxLength value="255"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Phone">
+                <xs:element name="phoneNumber">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
-                            <xs:pattern value="\d{10}"/>
+                            <xs:pattern value="\+\d{1,2}\s\d{2}-\d{4}-\d{4}"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Email">
+                <xs:element name="emailAddress">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
+                <xs:element name="rfc">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="[A-Z|Ñ]{3,4}\d{6}[A-Z\d]{3}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+                 <!-- El type="bookData" hace referencia a los elementos del libro, 
+                los cuales coloque a nivel de schema para que fueran reutilizables-->
+                <xs:element name="booksPurchased" minOccurs="0" maxOccurs="999" type="bookData"/>
+				<xs:element name="rentedBooks" minOccurs="0" maxOccurs="999" type="bookData"/>
+                <xs:element name="coments" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base='xs:string'>
+							<xs:maxLength value="255"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
