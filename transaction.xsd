@@ -1,39 +1,71 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="Transaction">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="ID">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:int">
-                            <xs:minInclusive value="1"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-                <xs:element name="ClientID">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:int">
-                            <xs:minInclusive value="1"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-                <xs:element name="BookISBN">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:pattern value="\d{3}-\d{10}"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-                <xs:element name="Date" type="xs:date"/>
-                <xs:element name="Type">
-                    <xs:simpleType>
-                        <xs:restriction base="xs:string">
-                            <xs:enumeration value="Sale"/>
-                            <xs:enumeration value="Loan"/>
-                            <xs:enumeration value="Return"/>
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:element>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <!-- Tipo complejo para la transacción -->
+    <xs:complexType name="Transaction">
+        <xs:sequence>
+            <xs:element name="idTransaction" type="xs:int" minOccurs="1"/>
+            <xs:element name="idClient" type="xs:int" minOccurs="1"/>
+            <xs:element name="isbn">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="\d{3}-\d{1,5}-\d{1,7}-\d{1,7}-\d{1}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="amount" type="xs:int" minOccurs="1"/>
+            <xs:element name="unitPrice" type="xs:decimal" minOccurs="1"/>
+            <xs:element name="price" type="xs:decimal" minOccurs="1"/>
+            <xs:element name="type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Purchase"/>
+                        <xs:enumeration value="Sale"/>
+                        <xs:enumeration value="Rental"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="date">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="status">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Completed"/>
+                        <xs:enumeration value="Pending"/>
+                        <xs:enumeration value="Cancelled"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Tipo complejo para la confirmación -->
+    <xs:complexType name="Confirmation">
+        <xs:sequence>
+            <xs:element name="idTransaction" type="xs:int" minOccurs="1"/>
+            <xs:element name="confirmationDate">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="confirmationStatus">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Confirmed"/>
+                        <xs:enumeration value="Rejected"/>
+                        <xs:enumeration value="Pending"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="message" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
 </xs:schema>
