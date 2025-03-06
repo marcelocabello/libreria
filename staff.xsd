@@ -14,6 +14,7 @@
                         <xs:restriction base="xs:string">
                             <xs:minLength value="1"/>
                             <xs:maxLength value="255"/>
+                            <xs:pattern value="[a-zA-Z\s]+"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
@@ -22,10 +23,39 @@
                         <xs:restriction base="xs:string">
                             <xs:minLength value="1"/>
                             <xs:maxLength value="255"/>
+                            <xs:pattern value="[a-zA-Z\s]+"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="HireDate" type="xs:date"/>
+                <xs:element name="HireDate">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:date">
+                            <xs:minInclusive value="1900-01-01"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Salary">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                            <xs:minInclusive value="0.00"/>
+                            <xs:fractionDigits value="2"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Email">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Phone">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="\d{10}"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
