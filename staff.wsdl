@@ -1,0 +1,36 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/staff" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/staff">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://example.com/staff" schemaLocation="../entities/staff.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="AddRemoveStaffRequest">
+        <part name="staff" element="tns:Staff"/>
+    </message>
+    <message name="AddRemoveStaffResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <portType name="StaffPortType">
+        <operation name="AddRemoveStaff">
+            <input message="tns:AddRemoveStaffRequest"/>
+            <output message="tns:AddRemoveStaffResponse"/>
+        </operation>
+    </portType>
+    <binding name="StaffBinding" type="tns:StaffPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="AddRemoveStaff">
+            <soap:operation soapAction="http://example.com/staff/AddRemoveStaff"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="StaffService">
+        <port name="StaffPort" binding="tns:StaffBinding">
+            <soap:address location="http://example.com/staff"/>
+        </port>
+    </service>
+</definitions>

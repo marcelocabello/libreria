@@ -1,0 +1,36 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/client" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/client">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://example.com/client" schemaLocation="../entities/client.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="RegisterClientRequest">
+        <part name="client" element="tns:Client"/>
+    </message>
+    <message name="RegisterClientResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <portType name="ClientPortType">
+        <operation name="RegisterClient">
+            <input message="tns:RegisterClientRequest"/>
+            <output message="tns:RegisterClientResponse"/>
+        </operation>
+    </portType>
+    <binding name="ClientBinding" type="tns:ClientPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="RegisterClient">
+            <soap:operation soapAction="http://example.com/client/RegisterClient"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="ClientService">
+        <port name="ClientPort" binding="tns:ClientBinding">
+            <soap:address location="http://example.com/client"/>
+        </port>
+    </service>
+</definitions>

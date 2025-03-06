@@ -1,0 +1,55 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/transaction" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/transaction">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://example.com/transaction" schemaLocation="../entities/transaction.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="CheckTransactionHistoryRequest">
+        <part name="clientID" type="xsd:int"/>
+    </message>
+    <message name="CheckTransactionHistoryResponse">
+        <part name="transactions" element="tns:Transaction"/>
+    </message>
+    <message name="UpdateInventoryRequest">
+        <part name="book" element="tns:Book"/>
+    </message>
+    <message name="UpdateInventoryResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <portType name="TransactionPortType">
+        <operation name="CheckTransactionHistory">
+            <input message="tns:CheckTransactionHistoryRequest"/>
+            <output message="tns:CheckTransactionHistoryResponse"/>
+        </operation>
+        <operation name="UpdateInventory">
+            <input message="tns:UpdateInventoryRequest"/>
+            <output message="tns:UpdateInventoryResponse"/>
+        </operation>
+    </portType>
+    <binding name="TransactionBinding" type="tns:TransactionPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="CheckTransactionHistory">
+            <soap:operation soapAction="http://example.com/transaction/CheckTransactionHistory"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="UpdateInventory">
+            <soap:operation soapAction="http://example.com/transaction/UpdateInventory"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="TransactionService">
+        <port name="TransactionPort" binding="tns:TransactionBinding">
+            <soap:address location="http://example.com/transaction"/>
+        </port>
+    </service>
+</definitions>

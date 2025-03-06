@@ -1,0 +1,93 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/book" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/book">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://example.com/book" schemaLocation="../entities/book.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="SellBookRequest">
+        <part name="book" element="tns:Book"/>
+    </message>
+    <message name="SellBookResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="CheckAvailabilityRequest">
+        <part name="ISBN" type="xsd:string"/>
+    </message>
+    <message name="CheckAvailabilityResponse">
+        <part name="availability" type="xsd:boolean"/>
+    </message>
+    <message name="LoanBookRequest">
+        <part name="book" element="tns:Book"/>
+    </message>
+    <message name="LoanBookResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="AddRemoveBookRequest">
+        <part name="book" element="tns:Book"/>
+    </message>
+    <message name="AddRemoveBookResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <portType name="BookPortType">
+        <operation name="SellBook">
+            <input message="tns:SellBookRequest"/>
+            <output message="tns:SellBookResponse"/>
+        </operation>
+        <operation name="CheckAvailability">
+            <input message="tns:CheckAvailabilityRequest"/>
+            <output message="tns:CheckAvailabilityResponse"/>
+        </operation>
+        <operation name="LoanBook">
+            <input message="tns:LoanBookRequest"/>
+            <output message="tns:LoanBookResponse"/>
+        </operation>
+        <operation name="AddRemoveBook">
+            <input message="tns:AddRemoveBookRequest"/>
+            <output message="tns:AddRemoveBookResponse"/>
+        </operation>
+    </portType>
+    <binding name="BookBinding" type="tns:BookPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="SellBook">
+            <soap:operation soapAction="http://example.com/book/SellBook"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CheckAvailability">
+            <soap:operation soapAction="http://example.com/book/CheckAvailability"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="LoanBook">
+            <soap:operation soapAction="http://example.com/book/LoanBook"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="AddRemoveBook">
+            <soap:operation soapAction="http://example.com/book/AddRemoveBook"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="BookService">
+        <port name="BookPort" binding="tns:BookBinding">
+            <soap:address location="http://example.com/book"/>
+        </port>
+    </service>
+</definitions>
