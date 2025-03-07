@@ -1,24 +1,50 @@
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/client" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/client">
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://com.client"
+             xmlns:tns="http://com.client">
+
     <types>
         <xsd:schema>
             <xsd:import namespace="http://example.com/client" schemaLocation="../entities/client.xsd"/>
         </xsd:schema>
     </types>
-    <message name="RegisterClientRequest">
-        <part name="client" element="tns:Client"/>
+
+    <!-- Mensajes existentes -->
+    <message name="registerClientRequest">
+        <part name="client" element="tns:client"/>
     </message>
-    <message name="RegisterClientResponse">
+    <message name="registerClientResponse">
         <part name="result" type="xsd:boolean"/>
     </message>
-    <portType name="ClientPortType">
-        <operation name="RegisterClient">
-            <input message="tns:RegisterClientRequest"/>
-            <output message="tns:RegisterClientResponse"/>
+
+    <!-- Nuevo mensaje para solicitud de datos del cliente -->
+    <message name="getClientRequest">
+        <part name="clientId" type="xsd:int"/>
+    </message>
+
+    <!-- Nuevo mensaje para la respuesta con los datos del cliente -->
+    <message name="getClientResponse">
+        <part name="clientData" element="tns:client"/>
+    </message>
+
+    <portType name="clientPortType">
+        <operation name="registerClient">
+            <input message="tns:registerClientRequest"/>
+            <output message="tns:registerClientResponse"/>
+        </operation>
+
+        <!-- Nueva operación para obtener datos del cliente -->
+        <operation name="getClient">
+            <input message="tns:getClientRequest"/>
+            <output message="tns:getClientResponse"/>
         </operation>
     </portType>
-    <binding name="ClientBinding" type="tns:ClientPortType">
-        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="RegisterClient">
+
+    <binding name="clientBinding" type="tns:clientPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="registerClient">
             <soap:operation soapAction="http://example.com/client/RegisterClient"/>
             <input>
                 <soap:body use="literal"/>
@@ -27,10 +53,23 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+
+        <!-- Nuevo binding para la operación getClient -->
+        <operation name="getClient">
+            <soap:operation soapAction="http://example.com/client/GetClient"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
     </binding>
-    <service name="ClientService">
-        <port name="ClientPort" binding="tns:ClientBinding">
+
+    <service name="clientService">
+        <port name="ClientPort" binding="tns:clientBinding">
             <soap:address location="http://example.com/client"/>
         </port>
     </service>
+
 </definitions>
