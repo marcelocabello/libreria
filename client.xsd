@@ -52,7 +52,6 @@
                  <!-- El type="bookData" hace referencia a los elementos del libro, 
                 los cuales coloque a nivel de schema para que fueran reutilizables-->
                 <xs:element name="booksPurchased" minOccurs="0" maxOccurs="999" type="bookData"/>
-				<xs:element name="rentedBooks" minOccurs="0" maxOccurs="999" type="bookData"/>
                 <xs:element name="coments" minOccurs="0">
 					<xs:simpleType>
 						<xs:restriction base='xs:string'>
