@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <!-- Elemento principal transaction -->
+    <xs:element name="transaction" type="tns:TransactionType">
+        <xs:annotation>
+            <xs:documentation>Contiene la estructura de la información relacionada con una transacción</xs:documentation>
+        </xs:annotation>
+    </xs:element>
 
-    <!-- Tipo complejo para la transacción -->
+    <!-- Tipo complejo para los detalles de la transacción -->
     <xs:complexType name="Transaction">
         <xs:sequence>
-            <xs:element name="idTransaction" type="xs:int" minOccurs="1"/>
-            <xs:element name="idClient" type="xs:int" minOccurs="1"/>
+            <xs:element name="idTransaction" minOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="idClient" minOccurs="1">
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
             <xs:element name="isbn">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
@@ -14,14 +32,25 @@
                 </xs:simpleType>
             </xs:element>
             <xs:element name="amount" type="xs:int" minOccurs="1"/>
-            <xs:element name="unitPrice" type="xs:decimal" minOccurs="1"/>
-            <xs:element name="price" type="xs:decimal" minOccurs="1"/>
+            <xs:element name="unitPrice">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:minInclusive value="0.00"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="price">
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:minInclusive value="0.00"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
             <xs:element name="type">
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
-                        <xs:enumeration value="Purchase"/>
                         <xs:enumeration value="Sale"/>
-                        <xs:enumeration value="Rental"/>
+                        <xs:enumeration value="Rent"/>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:element>
@@ -36,7 +65,6 @@
                 <xs:simpleType>
                     <xs:restriction base="xs:string">
                         <xs:enumeration value="Completed"/>
-                        <xs:enumeration value="Pending"/>
                         <xs:enumeration value="Cancelled"/>
                     </xs:restriction>
                 </xs:simpleType>
@@ -44,6 +72,7 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:element name="confirmation" type="tns:Confirmation"/>
     <!-- Tipo complejo para la confirmación -->
     <xs:complexType name="Confirmation">
         <xs:sequence>
@@ -68,4 +97,11 @@
         </xs:sequence>
     </xs:complexType>
 
+    <!-- Tipo complejo para la transacción completa -->
+    <xs:complexType name="TransactionType">
+        <xs:sequence>
+            <xs:element name="transactionDetails" type="tns:Transaction"/>
+            <xs:element name="confirmation" type="tns:Confirmation"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>
