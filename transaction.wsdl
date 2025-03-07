@@ -1,55 +1,79 @@
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/transaction" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/transaction">
-    <types>
-        <xsd:schema>
-            <xsd:import namespace="http://example.com/transaction" schemaLocation="../entities/transaction.xsd"/>
-        </xsd:schema>
-    </types>
-    <message name="CheckTransactionHistoryRequest">
-        <part name="clientID" type="xsd:int"/>
-    </message>
-    <message name="CheckTransactionHistoryResponse">
-        <part name="transactions" element="tns:Transaction"/>
-    </message>
-    <message name="UpdateInventoryRequest">
-        <part name="book" element="tns:Book"/>
-    </message>
-    <message name="UpdateInventoryResponse">
-        <part name="result" type="xsd:boolean"/>
-    </message>
-    <portType name="TransactionPortType">
-        <operation name="CheckTransactionHistory">
-            <input message="tns:CheckTransactionHistoryRequest"/>
-            <output message="tns:CheckTransactionHistoryResponse"/>
-        </operation>
-        <operation name="UpdateInventory">
-            <input message="tns:UpdateInventoryRequest"/>
-            <output message="tns:UpdateInventoryResponse"/>
-        </operation>
-    </portType>
-    <binding name="TransactionBinding" type="tns:TransactionPortType">
-        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="CheckTransactionHistory">
-            <soap:operation soapAction="http://example.com/transaction/CheckTransactionHistory"/>
-            <input>
+<?xml version="1.0" encoding="UTF-8"?> 
+<wsdl:definitions
+  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tns="http://com.transaction" targetNamespace="http://com.transaction">
+
+    <wsdl:types>
+        <xs:schema targetNamespace="http://com.transaction" elementFormDefault="qualified">
+            <xs:import namespace="./transaction.xsd" schemaLocation="http://localhost:8080/schema/transaction.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+
+    <!-- Mensajes -->
+    <wsdl:message name="RegisterTransactionRequest">
+        <wsdl:part name="transaction" element="tns:transaction"/>
+    </wsdl:message>
+
+    <wsdl:message name="RegisterTransactionResponse">
+        <wsdl:part name="confirmation" element="tns:Confirmation"/>
+    </wsdl:message>
+
+    <wsdl:message name="ConfirmTransactionRequest">
+        <wsdl:part name="idTransaction" element="tns:idTransaction"/>
+    </wsdl:message>
+
+    <wsdl:message name="ConfirmTransactionResponse">
+        <wsdl:part name="confirmation" element="tns:Confirmation"/>
+    </wsdl:message>
+
+    <!-- Puerto -->
+    <wsdl:portType name="TransactionPortType">
+        <wsdl:operation name="RegisterTransaction">
+            <wsdl:input message="tns:RegisterTransactionRequest"/>
+            <wsdl:output message="tns:RegisterTransactionResponse"/>
+        </wsdl:operation>
+        
+        <wsdl:operation name="ConfirmTransaction">
+            <wsdl:input message="tns:ConfirmTransactionRequest"/>
+            <wsdl:output message="tns:ConfirmTransactionResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <!-- Binding -->
+    <wsdl:binding name="TransactionBinding" type="tns:TransactionPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        
+        <wsdl:operation name="RegisterTransaction">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
                 <soap:body use="literal"/>
-            </input>
-            <output>
+            </wsdl:input>
+            <wsdl:output>
                 <soap:body use="literal"/>
-            </output>
-        </operation>
-        <operation name="UpdateInventory">
-            <soap:operation soapAction="http://example.com/transaction/UpdateInventory"/>
-            <input>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="ConfirmTransaction">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
                 <soap:body use="literal"/>
-            </input>
-            <output>
+            </wsdl:input>
+            <wsdl:output>
                 <soap:body use="literal"/>
-            </output>
-        </operation>
-    </binding>
-    <service name="TransactionService">
-        <port name="TransactionPort" binding="tns:TransactionBinding">
-            <soap:address location="http://example.com/transaction"/>
-        </port>
-    </service>
-</definitions>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <!-- Servicio -->
+    <wsdl:service name="TransactionService">
+        <wsdl:port name="TransactionPort" binding="tns:TransactionBinding">
+            <soap:address location="http://localhost:8080/TransactionService"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>
