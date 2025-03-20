@@ -1,4 +1,5 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://com.BookStore/client" xmlns:book = "http://com.BookStore/book" >
+	<xs:import namespace="http://com.BookStore/book" schemaLocation="book.xsd" />
     <xs:element name="client">
         <xs:complexType>
             <xs:annotation>
@@ -51,7 +52,7 @@
 				</xs:element>
                  <!-- El type="bookData" hace referencia a los elementos del libro, 
                 los cuales coloque a nivel de schema para que fueran reutilizables-->
-                <xs:element name="booksPurchased" minOccurs="0" maxOccurs="999" type="bookData"/>
+                <xs:element name="booksPurchased" minOccurs="0" maxOccurs="999" type="book:bookType"/>
                 <xs:element name="coments" minOccurs="0">
 					<xs:simpleType>
 						<xs:restriction base='xs:string'>
