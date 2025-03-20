@@ -1,4 +1,4 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" Namespace="http://com.BookStore/staff">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://com.BookStore/staff">
     <xs:element name="staff">
         <xs:complexType>
             <xs:sequence>
