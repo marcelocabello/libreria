@@ -1,7 +1,21 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://com.BookStore/client" xmlns:book = "http://com.BookStore/book" >
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://com.BookStore/client" xmlns:tns = "http://com.BookStore/client" xmlns:book = "http://com.BookStore/book" >
 	<xs:import namespace="http://com.BookStore/book" schemaLocation="book.xsd" />
-    <xs:element name="client">
-        <xs:complexType>
+    <xs:element name="clientRegistration" type = "tns:clientType">
+    </xs:element>
+    <xs:element name = "clientConfirmation">
+         <xs:complexType>
+		 <xs:secuence>
+			 <xs:element name = "clientInfo" type = "tns:clientType"/>
+			  <xs:element name = "confirmation">
+			  	<xs:simleType>
+					 <xs:restriction base="xs:bool"/>
+				</xs:simleType>
+			  </xs:element>
+		 </xs:secuence>
+	 </xs:complexType>
+    </xs:element>
+
+	 <xs:complexType name = "clientType">
             <xs:annotation>
 			    <xs:documentation>all elements of the client</xs:documentation>
 		    </xs:annotation>
@@ -62,5 +76,4 @@
 				</xs:element>
             </xs:sequence>
         </xs:complexType>
-    </xs:element>
 </xs:schema>
