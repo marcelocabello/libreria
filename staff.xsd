@@ -1,15 +1,15 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="Staff">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" Namespace="http://com.BookStore/staff">
+    <xs:element name="staff">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="ID">
+                <xs:element name="idStaff">
                     <xs:simpleType>
                         <xs:restriction base="xs:int">
                             <xs:minInclusive value="1"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Name">
+                <xs:element name="name">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:minLength value="1"/>
@@ -18,7 +18,7 @@
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Position">
+                <xs:element name="position">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:minLength value="1"/>
@@ -27,14 +27,14 @@
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="HireDate">
+                <xs:element name="hireDate">
                     <xs:simpleType>
                         <xs:restriction base="xs:date">
                             <xs:minInclusive value="1900-01-01"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Salary">
+                <xs:element name="salary">
                     <xs:simpleType>
                         <xs:restriction base="xs:decimal">
                             <xs:minInclusive value="0.00"/>
@@ -42,14 +42,14 @@
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Email">
+                <xs:element name="email">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Phone">
+                <xs:element name="phone">
                     <xs:simpleType>
                         <xs:restriction base="xs:string">
                             <xs:pattern value="\d{10}"/>
