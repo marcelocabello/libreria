@@ -1,6 +1,8 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="Book">
-        <xs:complexType>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://com.BookStore/book" xmlns:tns = "http://com.BookStore/book">
+    <xs:element name="Book" type = "tns:bookType">
+        
+    </xs:element>
+    <xs:complexType name bookType>
             <xs:sequence>
                 <xs:element name="ISBN">
                     <xs:simpleType>
@@ -41,8 +43,7 @@
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Availability" type="xs:boolean"/>
+                <xs:element name="Availability" type="xs:boolean" minOcurs = "0"/>
             </xs:sequence>
         </xs:complexType>
-    </xs:element>
 </xs:schema>
