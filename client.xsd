@@ -6,15 +6,20 @@
          <xs:complexType>
 		 <xs:secuence>
 			 <xs:element name = "clientInfo" type = "tns:clientType"/>
-			  <xs:element name = "confirmation">
-			  	<xs:simleType>
-					 <xs:restriction base="xs:bool"/>
-				</xs:simleType>
-			  </xs:element>
+			 <xs:element name = "confirmation" type = "xs:bool"/>
 		 </xs:secuence>
 	 </xs:complexType>
     </xs:element>
-
+    <xs:element name="clientQueryReq">
+	    <xs:simpleType>
+                        <xs:restriction base="xs:int">
+                            <xs:minInclusive value="1"/>
+                        </xs:restriction>
+            </xs:simpleType>
+    </xs:element>	
+    <xs:element name="clientQueryRes" type = "tns:clientType" minOcurs = "0">
+    </xs:element>
+    	
 	 <xs:complexType name = "clientType">
             <xs:annotation>
 			    <xs:documentation>all elements of the client</xs:documentation>
@@ -64,7 +69,7 @@
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
-                 <!-- El type="bookData" hace referencia a los elementos del libro, 
+                 <!-- El type="bookType" hace referencia a los elementos del libro, 
                 los cuales coloque a nivel de schema para que fueran reutilizables-->
                 <xs:element name="booksPurchased" minOccurs="0" maxOccurs="999" type="book:bookType"/>
                 <xs:element name="coments" minOccurs="0">
