@@ -3,7 +3,7 @@
                   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
                   xmlns:tns="http://com.library"
                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                  targetNamespace="http://com.library">
+                  targetNamespace="http://com.BookStore/transaction">
 
     <!-- Importar el XSD -->
     <wsdl:types>
