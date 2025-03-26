@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:tns="http://com.library" targetNamespace="http://com.library">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:tns="http://com.BookStore/transaction" targetNamespace="http://com.BookStore/transaction">
     <!-- Definición de tipos comunes -->
     <xs:simpleType name="ClientIDType">
         <xs:restriction base="xs:string">
