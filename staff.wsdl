@@ -1,7 +1,8 @@
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/staff" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/staff">
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/staff" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://com.BookStore/staf">
     <types>
         <xsd:schema>
-            <xsd:import namespace="http://example.com/staff" schemaLocation="../entities/staff.xsd"/>
+            <xsd:import targetNamespace="http://com.BookStore/staf" schemaLocation="staff.xsd"/>
         </xsd:schema>
     </types>
     <message name="AddRemoveStaffRequest">
