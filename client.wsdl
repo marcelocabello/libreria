@@ -13,20 +13,20 @@
 
     <!-- Mensajes existentes -->
     <message name="registerClientRequest">
-        <part name="client" element="tns:client"/>
+        <part name="client" element="tns:clientRegistration"/>
     </message>
     <message name="registerClientResponse">
-        <part name="result" type="xsd:boolean"/>
+        <part name="result" type="tns:clientConfirmation"/>
     </message>
 
     <!-- Nuevo mensaje para solicitud de datos del cliente -->
     <message name="getClientRequest">
-        <part name="clientId" type="xsd:int"/>
+        <part name="clientId" type="tns:clientQueryReq"/>
     </message>
 
     <!-- Nuevo mensaje para la respuesta con los datos del cliente -->
     <message name="getClientResponse">
-        <part name="clientData" element="tns:client"/>
+        <part name="clientData" element="tns:clientQueryRes"/>
     </message>
 
     <portType name="clientPortType">
