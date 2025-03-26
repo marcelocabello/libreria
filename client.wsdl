@@ -2,12 +2,12 @@
 <definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
              xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-             targetNamespace="http://com.client"
-             xmlns:tns="http://com.client">
+             targetNamespace="http://com.BookStore/client"
+             xmlns:tns="http://com.BookStore/client">
 
     <types>
         <xsd:schema>
-            <xsd:import namespace="http://example.com/client" schemaLocation="../entities/client.xsd"/>
+            <xsd:import targetNamespace="http://com.BookStore/client" schemaLocation="client.xsd"/>
         </xsd:schema>
     </types>
 
