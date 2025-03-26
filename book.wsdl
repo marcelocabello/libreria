@@ -1,7 +1,8 @@
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/book" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://example.com/book">
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/book" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://com.BookStore/book">
     <types>
         <xsd:schema>
-            <xsd:import namespace="http://example.com/book" schemaLocation="../entities/book.xsd"/>
+            <xsd:import targetNamespace="http://com.BookStore/book" schemaLocation="book.xsd"/>
         </xsd:schema>
     </types>
     <message name="SellBookRequest">
