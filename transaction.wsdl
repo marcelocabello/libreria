@@ -7,8 +7,8 @@
 
     <!-- Importar el XSD -->
     <wsdl:types>
-        <xs:schema targetNamespace="http://com.library">
-            <xs:include schemaLocation="library.xsd"/>
+        <xs:schema ttargetNamespace="http://com.BookStore/transaction">
+            <xs:include schemaLocation="transaction.xsd"/>
         </xs:schema>
     </wsdl:types>
 
