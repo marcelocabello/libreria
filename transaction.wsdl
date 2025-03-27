@@ -4,22 +4,20 @@
              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
              targetNamespace="http://com.BookStore/transaction"
              xmlns:tns="http://com.BookStore/transaction"
-             xmlns:book="http://com.BookStore/book">
+             xmlns:book="http://com.BookStore/book"> <!-- Namespace de Book -->
 
     <types>
         <xsd:schema>
-            <!-- Importar el XSD de transacciones -->
+            <!-- Importar esquemas necesarios -->
             <xsd:import targetNamespace="http://com.BookStore/transaction" schemaLocation="transaction.xsd"/>
-            <!-- Importar el XSD de libros para el ISBN -->
-            <xsd:import namespace="http://com.BookStore/book" schemaLocation="book.xsd"/>
+            <xsd:import namespace="http://com.BookStore/book" schemaLocation="book.xsd"/> <!-- Importar ISBN -->
         </xsd:schema>
     </types>
 
-    <!-- Mensajes (actualizados para usar ISBN) -->
+    <!-- Mensajes -->
     <message name="RegisterTransactionRequest">
         <part name="transaction" element="tns:transaction"/>
     </message>
-
     <message name="RegisterTransactionResponse">
         <part name="confirmation" element="tns:confirmation"/>
     </message>
@@ -27,12 +25,25 @@
     <message name="QueryTransactionRequest">
         <part name="criteria" element="tns:searchCriteria"/>
     </message>
-
     <message name="QueryTransactionResponse">
         <part name="confirmations" element="tns:confirmations"/>
     </message>
 
-    <!-- Binding y Service (sin cambios pero verificados) -->
+    <message name="UpdateTransactionRequest">
+        <part name="update" element="tns:updateTransaction"/>
+    </message>
+    <message name="UpdateTransactionResponse">
+        <part name="confirmation" element="tns:confirmation"/>
+    </message>
+
+    <message name="CancelTransactionRequest">
+        <part name="cancel" element="tns:cancelTransaction"/>
+    </message>
+    <message name="CancelTransactionResponse">
+        <part name="cancelConfirmation" element="tns:cancelConfirmation"/>
+    </message>
+
+    <!-- PortType -->
     <portType name="TransactionPortType">
         <operation name="RegisterTransaction">
             <input message="tns:RegisterTransactionRequest"/>
@@ -52,6 +63,7 @@
         </operation>
     </portType>
 
+    <!-- Binding -->
     <binding name="TransactionBinding" type="tns:TransactionPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         
@@ -80,10 +92,10 @@
         </operation>
     </binding>
 
+    <!-- Service -->
     <service name="TransactionService">
         <port name="TransactionPort" binding="tns:TransactionBinding">
             <soap:address location="http://example.com/transaction"/>
         </port>
     </service>
-
 </definitions>
