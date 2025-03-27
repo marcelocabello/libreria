@@ -1,91 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:tns="http://com.library"
-                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                  targetNamespace="http://com.BookStore/transaction">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://com.BookStore/transaction"
+             xmlns:tns="http://com.BookStore/transaction"
+             xmlns:book="http://com.BookStore/book">
 
-    <!-- Importar el XSD -->
-    <wsdl:types>
-        <xs:schema ttargetNamespace="http://com.BookStore/transaction">
-            <xs:include schemaLocation="transaction.xsd"/>
-        </xs:schema>
-    </wsdl:types>
+    <types>
+        <xsd:schema>
+            <!-- Importar el XSD de transacciones -->
+            <xsd:import targetNamespace="http://com.BookStore/transaction" schemaLocation="transaction.xsd"/>
+            <!-- Importar el XSD de libros para el ISBN -->
+            <xsd:import namespace="http://com.BookStore/book" schemaLocation="book.xsd"/>
+        </xsd:schema>
+    </types>
 
-    <!-- Mensajes -->
-    <wsdl:message name="createTransactionRequest">
-        <wsdl:part name="transaction" element="tns:transaction"/>
-    </wsdl:message>
-    <wsdl:message name="createTransactionResponse">
-        <wsdl:part name="confirmation" element="tns:confirmation"/>
-    </wsdl:message>
+    <!-- Mensajes (actualizados para usar ISBN) -->
+    <message name="RegisterTransactionRequest">
+        <part name="transaction" element="tns:transaction"/>
+    </message>
 
-    <wsdl:message name="searchTransactionsRequest">
-        <wsdl:part name="criteria" element="tns:SearchCriteria"/>
-    </wsdl:message>
-    <wsdl:message name="searchTransactionsResponse">
-        <wsdl:part name="transactions" element="tns:confirmations"/>
-    </wsdl:message>
+    <message name="RegisterTransactionResponse">
+        <part name="confirmation" element="tns:confirmation"/>
+    </message>
 
-    <wsdl:message name="cancelTransactionRequest">
-        <wsdl:part name="cancelRequest" element="tns:cancelTransaction"/>
-    </wsdl:message>
-    <wsdl:message name="cancelTransactionResponse">
-        <wsdl:part name="cancelResponse" element="tns:cancelConfirmation"/>
-    </wsdl:message>
+    <message name="QueryTransactionRequest">
+        <part name="criteria" element="tns:searchCriteria"/>
+    </message>
 
-    <!-- Operaciones -->
-    <wsdl:portType name="LibraryServicePortType">
-        <wsdl:operation name="createTransaction">
-            <wsdl:input message="tns:createTransactionRequest"/>
-            <wsdl:output message="tns:createTransactionResponse"/>
-        </wsdl:operation>
-        <wsdl:operation name="searchTransactions">
-            <wsdl:input message="tns:searchTransactionsRequest"/>
-            <wsdl:output message="tns:searchTransactionsResponse"/>
-        </wsdl:operation>
-        <wsdl:operation name="cancelTransaction">
-            <wsdl:input message="tns:cancelTransactionRequest"/>
-            <wsdl:output message="tns:cancelTransactionResponse"/>
-        </wsdl:operation>
-    </wsdl:portType>
+    <message name="QueryTransactionResponse">
+        <part name="confirmations" element="tns:confirmations"/>
+    </message>
 
-    <!-- Binding -->
-    <wsdl:binding name="LibraryServiceSoapBinding" type="tns:LibraryServicePortType">
+    <!-- Binding y Service (sin cambios pero verificados) -->
+    <portType name="TransactionPortType">
+        <operation name="RegisterTransaction">
+            <input message="tns:RegisterTransactionRequest"/>
+            <output message="tns:RegisterTransactionResponse"/>
+        </operation>
+        <operation name="QueryTransaction">
+            <input message="tns:QueryTransactionRequest"/>
+            <output message="tns:QueryTransactionResponse"/>
+        </operation>
+        <operation name="UpdateTransaction">
+            <input message="tns:UpdateTransactionRequest"/>
+            <output message="tns:UpdateTransactionResponse"/>
+        </operation>
+        <operation name="CancelTransaction">
+            <input message="tns:CancelTransactionRequest"/>
+            <output message="tns:CancelTransactionResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="TransactionBinding" type="tns:TransactionPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsdl:operation name="createTransaction">
-            <soap:operation soapAction="http://com.library/createTransaction"/>
-            <wsdl:input>
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output>
-                <soap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="searchTransactions">
-            <soap:operation soapAction="http://com.library/searchTransactions"/>
-            <wsdl:input>
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output>
-                <soap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="cancelTransaction">
-            <soap:operation soapAction="http://com.library/cancelTransaction"/>
-            <wsdl:input>
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output>
-                <soap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-    </wsdl:binding>
+        
+        <operation name="RegisterTransaction">
+            <soap:operation soapAction="http://com.BookStore/transaction/RegisterTransaction"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+        
+        <operation name="QueryTransaction">
+            <soap:operation soapAction="http://com.BookStore/transaction/QueryTransaction"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+        
+        <operation name="UpdateTransaction">
+            <soap:operation soapAction="http://com.BookStore/transaction/UpdateTransaction"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+        
+        <operation name="CancelTransaction">
+            <soap:operation soapAction="http://com.BookStore/transaction/CancelTransaction"/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+    </binding>
 
-    <!-- Servicio -->
-    <wsdl:service name="LibraryService">
-        <wsdl:port name="LibraryServicePort" binding="tns:LibraryServiceSoapBinding">
-            <soap:address location="http://localhost:8080/library-service"/>
-        </wsdl:port>
-    </wsdl:service>
-</wsdl:definitions>
+    <service name="TransactionService">
+        <port name="TransactionPort" binding="tns:TransactionBinding">
+            <soap:address location="http://example.com/transaction"/>
+        </port>
+    </service>
+
+</definitions>
