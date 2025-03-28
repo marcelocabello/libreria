@@ -1,33 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://example.com/book" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://com.BookStore/book">
-    <types>
-        <xsd:schema>
-            <xsd:import targetNamespace="http://com.BookStore/book" schemaLocation="book.xsd"/>
-        </xsd:schema>
-    </types>
-    <message name="SellBookRequest">
-        <part name="book" element="tns:Book"/>
+<definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://com.BookStore/book">
+    <wsdl:types>
+		<xs:schema targetNamespace="http://com.bookstore/book" elementFormDefault="qualified"/>
+		<xs:include schemaLocation="book.xsd"/>
+	</wsdl:types>
+    <message name="addBookRequest">
+        <part name="parameter" element="tns:addBook"/>
     </message>
-    <message name="SellBookResponse">
-        <part name="result" type="xsd:boolean"/>
+    <message name="confirmationBookResponse">
+        <part name="parameter" type="tns:confirmationBook"/>
     </message>
     <message name="CheckAvailabilityRequest">
-        <part name="ISBN" type="xsd:string"/>
+        <part name="ISBN" type="tns:checkAvailabilityReq"/>
     </message>
     <message name="CheckAvailabilityResponse">
-        <part name="availability" type="xsd:boolean"/>
+        <part name="availability" type="tns:CheckAvailabilityRes"/>
     </message>
-    <message name="LoanBookRequest">
-        <part name="book" element="tns:Book"/>
+    <message name="removeBookRequest">
+        <part name="ISBN" element="tns:removeBookReq"/>
     </message>
-    <message name="LoanBookResponse">
-        <part name="result" type="xsd:boolean"/>
-    </message>
-    <message name="AddRemoveBookRequest">
-        <part name="book" element="tns:Book"/>
-    </message>
-    <message name="AddRemoveBookResponse">
-        <part name="result" type="xsd:boolean"/>
+    <message name="removeBookResponse">
+        <part name="result" type="tns:removeBookRes"/>
     </message>
     <portType name="BookPortType">
         <operation name="SellBook">
