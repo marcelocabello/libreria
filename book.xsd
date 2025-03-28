@@ -1,8 +1,53 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://com.BookStore/book" xmlns:tns = "http://com.BookStore/book">
-    <xs:element name="Book" type = "tns:bookType">
-        
+    
+    <xs:element name="addBook">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="trashElement" type="xs:string" minOccurs="0">
+                </xs:element>
+                <xs:element name="book" type="tns:bookType"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
     </xs:element>
-    <xs:complexType name bookType>
+    <xs:element name="confirmationBook">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="idBook">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:integer">
+                            <xs:minInclusive value="1"/>
+                            <xs:maxInclusive value="99999"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="book" type="tns:bookType"></xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="checkAvailabilityReq">
+         <xs:simpleType>
+           <xs:restriction base="xs:string">
+                <xs:pattern value="\d{3}-\d{10}"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="CheckAvailabilityRes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="resultBook" type="tns:bookType"></xs:element>
+                <xs:element name="trashElement" type="xs:string" minOccurs="0" ></xs:element>
+            </xs:sequence>  
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="removeBookReq">
+         <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:pattern value="\d{3}-\d{10}"/>
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="removeBookRes" type="xs:boolean"></xs:element>
+    <xs:complexType name="bookType">
             <xs:sequence>
                 <xs:element name="ISBN">
                     <xs:simpleType>
@@ -43,7 +88,7 @@
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="Availability" type="xs:boolean" minOcurs = "0"/>
+                <xs:element name="Availability" type="xs:boolean" minOccurs = "0"></xs:element>
             </xs:sequence>
         </xs:complexType>
 </xs:schema>
